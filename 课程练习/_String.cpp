@@ -1,88 +1,108 @@
 #include<assert.h>
-#include<string>
 #include<iostream>
 using namespace std;
 
 
 #if 0
-//Ç³¿½±´ÎÊÌâ
+  æµ…æ‹·è´é—®é¢˜çš„Stringç±»
 class String
 {
 public:
-	String(const char* str = "")   //Èç¹ûÃ»ÓĞ´«¾Í¸øÒ»¸ö¿ÕµÄÈ±Ê¡Öµ
+	String(const char* str = "")    //åˆ›å»ºç©ºçš„å­—ç¬¦ä¸²
 	{
+		//assert(str);         //æ–­è¨€æ£€æµ‹æ˜¯å¦ä¸ºç©º
 		if(nullptr == str)
-		{
-			assert(str);
-			str="";
-		}
-
+			str = "";           //å¦‚æœä¸ºç©ºé‚£ä¹ˆå°±å½“ä½œç©ºå­—ç¬¦ä¸²
+		
 		_str = new char[strlen(str) + 1];
 		strcpy(_str,str);
-	}
+		/*
+			if(nullptr == str)
+			{
+				//_str = new char   //åˆ†é…ä¸€ä¸ªå­—èŠ‚çš„ç©ºé—´,ä½†åœ¨ä¸‹è¾¹ææ„æ—¶éœ€è¦ä¸deleteåŒ¹é…èµ·æ¥ä½¿ç”¨ï¼Œä¸ºäº†æ–¹ä¾¿ï¼Œå°†å…¶è®¾ä¸ºä»¥ä¸‹å½¢å¼
+				_str = new[1] char;
+				*_str = "\0"
+			}
+			else
+			{
+				_str = new char[strlen(str) + 1];
+				strcpy(_str,str);
+			}
+		*/
+	} 
 
-	//	if(nullptr == str)
-	//	{
-	//		//_str = new char;
-	//		_str = new char[1];
-	//		*_str = '\0';
-	//	}
-	//	else
-	//	{
-	//		_str = new char[strlen(str)+1];
-	//		strcpy(_str,str);
-	//	}
-	
-
-	//¶à¸ö¶ÔÏóÊ¹ÓÃÍ¬Ò»·İ×ÊÔ´£¬µ¼ÖÂÔÚÏú»Ù×ÊÔ´Ê±Í¬Ò»·İ×ÊÔ´±»ÊÍ·Å¶à´Î
+	//ç±»ä¼¼ç³»ç»Ÿç”Ÿæˆçš„é»˜è®¤æ‹·è´æ„é€ å‡½æ•°çš„æ–¹å¼
+	//å€¼çš„æ‹·è´æ–¹å¼-----å†…å­˜çš„æ‹·è´
+	//åæœï¼šå¤šä¸ªå¯¹è±¡å…±ç”¨åŒä¸€ä»½èµ„æºï¼Œåœ¨é”€æ¯æ—¶åŒä¸€ä»½èµ„æºè¢«é‡Šæ”¾å¤šæ¬¡è€Œå¼•èµ·ç¨‹åºçš„å´©æºƒ
 	String(const String& s)
-		:_str(s._str)
+		:_str(s._str)   //å½“å‰å¯¹è±¡çš„æŒ‡é’ˆå’Œsé‡Œçš„å­—ç¬¦ä¸²å…±ç”¨åŒä¸€æ®µç©ºé—´
 	{}
 
-
-	//1.ÄÚ´æĞ¹Â©     2.Óë¿½±´¹¹Ôìº¯ÊıÀàËÆ
-	String& operator=(const String& s)
-	{}
+	//ç±»ä¼¼ç³»ç»Ÿç”Ÿæˆçš„é»˜è®¤çš„èµ‹å€¼è¿ç®—ç¬¦é‡è½½çš„æ–¹å¼
+	//é—®é¢˜ï¼š1.å†…å­˜æ³„éœ²
+	//		2.ä¸æ‹·è´æ„é€ å‡½æ•°ç±»ä¼¼
+	String& operator=(const String& s)   
+	{ 
+		if(this != &s)
+		{
+			_str = s._str;
+			return *this;
+		}
+	}
 
 	~String()
 	{
-		if(_str)   //ÅĞ¶ÏÓĞÃ»ÓĞ¿Õ¼ä
+		if(_str)  //åˆ¤æ–­æ˜¯å¦æœ‰ç©ºé—´
 		{
 			delete[] _str;
 			_str = nullptr;
 		}
 	}
+
 private:
-	char* _str;        //¶¯Ì¬¿Õ¼ä£¬±£´æ×Ö·û´®
+	char* _str;
 };
 
-
-void Test()
+void TestString()
 {
 	String s1("hello");
-	String s2(s1);            //Èç¹ûÊÇµ÷ÓÃÄ¬ÈÏµÄ¿½±´¹¹Ôìº¯Êı£¬ÄÇÃ´Îö¹¹Íês2ºóÎö¹¹s1Ê±»áÔì³É±ÀÀ£
+	String s2(s1);    //ç”¨s1æ‹·è´æ„é€ s2ï¼Œå› ä¸ºæ²¡æœ‰è‡ªå·±ç»™å‡ºæ‹·è´æ„é€ å‡½æ•°ï¼Œç³»ç»Ÿä¼šé»˜è®¤ä½¿ç”¨ç±»ç”Ÿæˆçš„æ‹·è´æ„é€ å‡½æ•°è¿›è¡Œå€¼çš„æ‹·è´ï¼ˆæµ…æ‹·è´ï¼‰,é”€æ¯æœŸé—´ä¼šå¯¹ä¸€æ®µèµ„æºé”€æ¯ä¸¤æ¬¡äº§ç”Ÿç¨‹åºè€Œå´©æºƒ
+	String s2 = s1;   //æ­¤æ—¶ä¼šçœ‹åˆ°s2æœ¬èº«æœ‰ä¸€ä¸ªåœ°å€ç©ºé—´ï¼Œä½†æ˜¯åœ¨èµ‹å€¼æ—¶å®Œå…¨å°†s1ä¸­çš„ä¸œè¥¿æ‹·è´ï¼Œä½¿å¾—s2æœ¬æ¥çš„ç©ºé—´æ‰¾ä¸åˆ°äº†ï¼Œäº§ç”Ÿå†…å­˜æ³„æ¼
 }
 #endif
 
+
 #if 0
-//ÎªÁË±ÜÃâÊ¹ÓÃÍ¬Ò»·İ¿Õ¼ä£¬¿ÉÒÔÊÂÏÈ¸ø¶ÔÏóÒ»¸ö¿Õ¼ä
+ä½¿ç”¨æ·±æ‹·è´è¿›è¡Œå¤„ç†
+	ä¼ ç»Ÿæ–¹å¼
 class String
 {
 public:
-	String(const char* str = "")   //Èç¹ûÃ»ÓĞ´«¾Í¸øÒ»¸ö¿ÕµÄÈ±Ê¡Öµ
+	String(const char* str = "")    //åˆ›å»ºç©ºçš„å­—ç¬¦ä¸²
 	{
+		//assert(str);         //æ–­è¨€æ£€æµ‹æ˜¯å¦ä¸ºç©º
 		if(nullptr == str)
-		{
-			assert(str);
-			str="";
-		}
-
+			str = "";           //å¦‚æœä¸ºç©ºé‚£ä¹ˆå°±å½“ä½œç©ºå­—ç¬¦ä¸²
+		
 		_str = new char[strlen(str) + 1];
 		strcpy(_str,str);
-	}
+		/*
+			if(nullptr == str)
+			{
+				//_str = new char   //åˆ†é…ä¸€ä¸ªå­—èŠ‚çš„ç©ºé—´,ä½†åœ¨ä¸‹è¾¹ææ„æ—¶éœ€è¦ä¸deleteåŒ¹é…èµ·æ¥ä½¿ç”¨ï¼Œä¸ºäº†æ–¹ä¾¿ï¼Œå°†å…¶è®¾ä¸ºä»¥ä¸‹å½¢å¼
+				_str = new[1] char;
+				*_str = "\0"
+			}
+			else
+			{
+				_str = new char[strlen(str) + 1];
+				strcpy(_str,str);
+			}
+		*/
+	} 
 
 	String(const String& s)
-		:_str(new char[strlen(s._str) + 1])
+		:_str(new char[strlen(s._str) + 1])   //å…ˆåˆ†é…ä¸€æ®µç©ºé—´
 	{
 		strcpy(_str,s._str);
 	}
@@ -91,84 +111,105 @@ public:
 	{
 		if(this != &s)
 		{
-			/*delete[] _str;
+			/*
+			é‡Šæ”¾æ—§ç©ºé—´ï¼Œå¼€è¾Ÿæ–°ç©ºé—´ï¼Œå†è¿›è¡Œå­—ç¬¦ä¸²æ‹·è´
+			delete[] _str;			//å› ä¸ºå…ˆé‡Šæ”¾äº†åŸæ¥ç©ºé—´ï¼Œå¦‚æœå¼€è¾Ÿæ–°ç©ºé—´å¤±è´¥äº†ï¼Œé‚£ä¹ˆä¼šé€ æˆå½±å“
 			_str = new char[strlen(s._str) + 1];
-			strcpy(_str,s._str);*/
-
+			strcpy(_str,s._str);
+			*/ 
 			char* pStr = new char[strlen(s._str) + 1];
-			strcpy(pStr,s._str);
-			delete[] _str;
+			strcpy(_str,s._str);
+			delete[] _str;     //é‡Šæ”¾æ‰æ—§ç©ºé—´
 			_str = pStr;
 		}
+		return *this;
 	}
 
 	~String()
 	{
-		if(_str)  
+		if(_str)  //åˆ¤æ–­æ˜¯å¦æœ‰ç©ºé—´
 		{
 			delete[] _str;
 			_str = nullptr;
 		}
 	}
+
 private:
-	char* _str;        
+	char* _str;
 };
+
+
+void Test()
+{
+	String s1("hello");
+	String s2(s1);
+}
+
+int main()
+{
+	Test();
+	return 0;
+}
 #endif
 
 #if 0
+ç°ä»£ç‰ˆå†™æ³•ï¼Œä»£ç è¾ƒç®€æ´
 class String
 {
 public:
-	String(const char* str = "")   //Èç¹ûÃ»ÓĞ´«¾Í¸øÒ»¸ö¿ÕµÄÈ±Ê¡Öµ
+	String(const char* str = "")    //åˆ›å»ºç©ºçš„å­—ç¬¦ä¸²
 	{
 		if(nullptr == str)
-		{
-			assert(str);
-			str="";
-		}
-
+			str = "";           //å¦‚æœä¸ºç©ºé‚£ä¹ˆå°±å½“ä½œç©ºå­—ç¬¦ä¸²
+		
 		_str = new char[strlen(str) + 1];
 		strcpy(_str,str);
+	} 
+
+	String(const String& s)//æ³¨æ„ï¼æœ¬ç¼–è¯‘å™¨ä¸‹æ­¤æ—¶_stræ²¡æœ‰è¿›è¡Œåˆå§‹åŒ–ï¼Œæ”¾çš„æ˜¯ä¸€ä¸ªéšæœºå€¼ï¼Œæ‰€ä»¥åœ¨é‡Šæ”¾strTempæ—¶å‡ºé”™ï¼Œæ‰€ä»¥éœ€è¦ç»™ä¸€ä¸ªåˆå§‹å€¼
+		:_str(nullptr)
+	{
+		String strTemp(s._str);
+		swap(_str,strTemp._str);  
 	}
 
-	//String(const String& s)
-	//	:_str(nullptr)    //ÒÔ±ã½»»»Ê±²»»á·¢Éú´íÎó
- //	{
-	//	String strTemp(s._str);
-	//	swap(_str,strTemp._str);
-	//}
-
+	/*
 	String& operator=(const String& s)
 	{
 		if(this != &s)
 		{
-			String strTemp(s._str);
-			swap(_str,strTemp._str);  //°Ñµ±Ç°¶ÔÏóµÄ¿Õ¼äÓëÁÙÊ±¶ÔÏóµÄ¿Õ¼ä½»»»£¬³öº¯ÊıÊ±ÊÍ·ÅÁÙÊ±¶ÔÏóÊµ¼ÊÊ±ÊÍ·Åµ±Ç°¶ÔÏó¿Õ¼ä
+			String strTemp(s);
+			swap(_str,strTemp._str);        
 		}
-	 return *this;
+		return *this;   //å½“å‰å¯¹è±¡ç”¨çš„æ˜¯ä¸´æ—¶å¯¹è±¡çš„ç©ºé—´ï¼Œå‡ºäº†ä½œç”¨åŸŸé”€æ¯ä¸´æ—¶å¯¹è±¡ï¼Œå®é™…æ˜¯å°†å½“å‰å¯¹è±¡çš„åœ°å€ç©ºé—´é‡Šæ”¾äº†
 	}
+	*/
 
-	String& operator=(String s)     //´«Öµ¿½±´Ò»¸öÁÙÊ±¶ÔÏó
-  	{
+	String& operator=(String s)
+	{
 		swap(_str,s._str);
 		return *this;
 	}
 
 	~String()
 	{
-		if(_str)  
+		if(_str)  //åˆ¤æ–­æ˜¯å¦æœ‰ç©ºé—´
 		{
 			delete[] _str;
 			_str = nullptr;
 		}
 	}
+
 private:
-	char* _str;        
+	char* _str;
 };
+
 void Test()
 {
 	String s1("hello");
-	String s2 = s1;    //´ËÊ±¸³ÖµÆäÊµÊÇ strTemp ¸ø s2 ´«µÄÖµ£¬¼´Îªs2Ö¸ÏòµÄÆäÊµÊÇÁÙÊ±¶ÔÏóµÄµØÖ·¿Õ¼ä£¬ËùÒÔ²»ÓÃ´«ÒıÓÃ
+	String s2(s1);
+	String s3;
+	s3 = s2;   //æ­¤æ—¶å®é™…æ˜¯ä¸´æ—¶å¯¹è±¡ç»™s3èµ‹å€¼çš„
 }
 
 int main()
@@ -208,12 +249,12 @@ public:
 
 private:
 	char* _str;
-	int _count;  //Ã¿¸ö¶ÔÏóÖĞ¾ùÓĞÒ»·İ£¬Ò»¸ö¶ÔÏóĞŞ¸ÄÁËÆäËû¶ÔÏó²»ÖªµÀ
+	int _count;  //æ¯ä¸ªå¯¹è±¡ä¸­å‡æœ‰ä¸€ä»½ï¼Œä¸€ä¸ªå¯¹è±¡ä¿®æ”¹äº†å…¶ä»–å¯¹è±¡ä¸çŸ¥é“
 };
 #endif
 
 /*
-staticÒ²²»¿ÉÒÔ
+staticä¹Ÿä¸å¯ä»¥
 class String
 {
 public:
@@ -244,7 +285,7 @@ public:
 
 private:
 	char* _str;
-	static int _count;         //ËùÓĞ¶ÔÏó¹²ÏíµÄ£¬µ«×ÊÔ´ÓĞ¿ÉÄÜ»áÓĞ¶à·Ö£¬Ã¿µ÷ÓÃÒ»´Î¹¹Ôì¾Í½«_countÖÃÎª1ÁË£¬²»ÄÜÕë¶Ô¶à·İ×ÊÔ´£¬Èç String s3;
+	static int _count;         //æ‰€æœ‰å¯¹è±¡å…±äº«çš„ï¼Œä½†èµ„æºæœ‰å¯èƒ½ä¼šæœ‰å¤šåˆ†ï¼Œæ¯è°ƒç”¨ä¸€æ¬¡æ„é€ å°±å°†_countç½®ä¸º1äº†ï¼Œä¸èƒ½é’ˆå¯¹å¤šä»½èµ„æºï¼Œå¦‚ String s3;
 };
 
 int String::_count = 0;
@@ -253,7 +294,7 @@ void Test()
 {
 	String s1("hello");
 	String s2(s1);
-	String s3; //´ËÊ±»á³öÏÖÎÊÌâ£¬µ½ÕâÀïÊ±_countÖØĞÂ±»ÖÃÎª1£¬µ¼ÖÂÖ»ÄÜ½«s3ÊÍ·Å¶øÎŞ·¨ÊÍ·Ås1ºÍs2
+	String s3; //æ­¤æ—¶ä¼šå‡ºç°é—®é¢˜ï¼Œåˆ°è¿™é‡Œæ—¶_counté‡æ–°è¢«ç½®ä¸º1ï¼Œå¯¼è‡´åªèƒ½å°†s3é‡Šæ”¾è€Œæ— æ³•é‡Šæ”¾s1å’Œs2
 }
 
 int main()
@@ -262,9 +303,7 @@ int main()
 	return 0;
 }*/
 
-
-#if 0
-//Ğ´Ê±¿½±´£¨COW copy on write£©:Ç³¿½±´+ÒıÓÃ¼ÆÊı+ÔÚÏò¶ÔÏóĞ´ÄÚÈİÊ±£¬ÊÇ·ñĞèÒª¸øµ±Ç°¶ÔÏó¶ÀÁ¢¿Õ¼ä
+//å†™æ—¶æ‹·è´ï¼ˆCOW copy on writeï¼‰:æµ…æ‹·è´+å¼•ç”¨è®¡æ•°+åœ¨å‘å¯¹è±¡å†™å†…å®¹æ—¶ï¼Œæ˜¯å¦éœ€è¦ç»™å½“å‰å¯¹è±¡ç‹¬ç«‹ç©ºé—´
 class String
 {
 public:
@@ -289,7 +328,7 @@ public:
 	{
 		if(this != &s)
 		{
-			if(0 == --(*_pCount) && _str) //¼ì²â¿½±´ÒÔºó×Ô¼ºµÄ×ÊÔ´Ğè²»ĞèÒªÊÍ·Å
+			if(0 == --(*_pCount) && _str) //æ£€æµ‹æ‹·è´ä»¥åè‡ªå·±çš„èµ„æºéœ€ä¸éœ€è¦é‡Šæ”¾
 			{
 				delete[] _str;
 				_str = nullptr;
@@ -298,17 +337,17 @@ public:
 				_pCount = nullptr;
 			}
 			
-			//Óë±»¿½±´µÄ×ÊÔ´¹²Ïí×ÊÔ´
+			//ä¸è¢«æ‹·è´çš„èµ„æºå…±äº«èµ„æº
 			_str = s._str;
 			_pCount = s._pCount;
 
-			//ĞÂ×ÊÔ´¼ÆÊı+1
+			//æ–°èµ„æºè®¡æ•°+1
 			++(*_pCount);
 		}
 		return *this;
 	}
 
-	char& operator[](size_t index)   //·µ»ØÒıÓÃÊÇÒòÎªÓĞ¿ÉÄÜ·µ»Øºó×÷Îª×óÖµ
+	char& operator[](size_t index)   //è¿”å›å¼•ç”¨æ˜¯å› ä¸ºæœ‰å¯èƒ½è¿”å›åä½œä¸ºå·¦å€¼
 	{
 		if(*_pCount > 1)
 		{
@@ -354,12 +393,10 @@ void Test()
 	String s3; 
 	//s3 = s1;
 	s1 = s3;
-	s1[0] = 'H';    //´ËÊ±Ò»¸Ä±ä»áÈ«¸Ä±ä£¬s1,s2,s3¹²ÓÃÒ»·İ×ÊÔ´
+	s1[0] = 'H';    //æ­¤æ—¶ä¸€æ”¹å˜ä¼šå…¨æ”¹å˜ï¼Œs1,s2,s3å…±ç”¨ä¸€ä»½èµ„æº
 }
 
 int main()
 {
-	Test();
 	return 0;
 }
-#endif
