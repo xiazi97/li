@@ -52,7 +52,7 @@ public:
 
 	~String()
 	{
-		if(_str)  //判断是否有空间
+		if(_str)  //判断是否有空间，有的话将其释放
 		{
 			delete[] _str;
 			_str = nullptr;
