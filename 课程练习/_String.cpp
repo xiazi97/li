@@ -4,7 +4,7 @@ using namespace std;
 
 
 #if 0
-  浅拷贝问题的String类
+  存在浅拷贝问题的String类
 class String
 {
 public:
@@ -181,7 +181,7 @@ public:
 			String strTemp(s);
 			swap(_str,strTemp._str);        
 		}
-		return *this;   //当前对象用的是临时对象的空间，出了作用域销毁临时对象，实际是将当前对象的地址空间释放了
+		return *this;   //当前对象用的是临时对象的空间，出了作用域销毁临时对象后，实际是将当前对象的地址空间释放了
 	}
 	*/
 
