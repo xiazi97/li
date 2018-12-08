@@ -4,15 +4,15 @@
 using namespace std;
 
 #if 0
-//²»ÊÇÒ»¸öÕæÕıµÄº¯Êı
-template<class T>     //Ä£°å²ÎÊıÁĞ±í ¿ÉÒÔÊ¹ÓÃtemplate<typename T> £¬²»¿ÉÒÔÊ¹ÓÃstruct 
-T _Add(T left,T right)       //º¯ÊıÄ£°å
+//ä¸æ˜¯ä¸€ä¸ªçœŸæ­£çš„å‡½æ•°ï¼Œæ˜¯ä¸€ä¸ªï¼ˆä¸‡èƒ½ï¼‰æ¨¡æ¿
+template<class T>     //æ¨¡æ¿å‚æ•°åˆ—è¡¨ å¯ä»¥ä½¿ç”¨template<typename T> ï¼Œä¸å¯ä»¥ä½¿ç”¨struct 
+T _Add(T left,T right)       //å‡½æ•°æ¨¡æ¿
 {
 	return left + right;
 }
 
 template<class T>
-void PrintfArray(T array,int size)  //Êı×é»á×Ô¼º×ª»»ÀàĞÍ
+void PrintfArray(T array,int size)  //æ•°ç»„ä¼šè‡ªå·±è½¬æ¢ç±»å‹
 {
 	cout<<typeid(array).name() <<endl;
 	int i = 0;
@@ -30,13 +30,13 @@ int main()
 	char str[] = "hello";
 	PrintfArray(array,sizeof(array)/sizeof(int));
 	PrintfArray(str,strlen(str));
-	//ÒşÊ½ÊµÀı»¯---²»»á½øĞĞÒşÊ½µÄÀàĞÍ×ª»¯£¬ĞèÒªÓÃ»§×Ô¼ºÀ´Ç¿×ª/
-	cout<< _Add(1,2) <<endl;   //¸ù¾İÊµ²ÎÀàĞÍÀ´½øĞĞÀàĞÍÍÆÑİÉú³É´¦Àí¾ßÌåÀàĞÍµÄº¯Êı
-	cout<< _Add(1,(int)2.0) <<endl;  //µ«ÊÇÃæ¶Ô²ÎÊıÎª²»Í¬ÀàĞÍÊ±ÎŞ·¨ÅĞ¶ÏÈçºÎÊä³ö£¬ĞèÒª¶Ô²ÎÊı½øĞĞ´¦Àí£¬ÈçÇ¿×ªÀàĞÍ
+	//éšå¼å®ä¾‹åŒ–---ä¸ä¼šè¿›è¡Œéšå¼çš„ç±»å‹è½¬åŒ–ï¼Œéœ€è¦ç”¨æˆ·è‡ªå·±æ¥å¼ºè½¬/
+	cout<< _Add(1,2) <<endl;   //æ ¹æ®å®å‚ç±»å‹æ¥è¿›è¡Œç±»å‹æ¨æ¼”ç”Ÿæˆå¤„ç†å…·ä½“ç±»å‹çš„å‡½æ•°
+	cout<< _Add(1,(int)2.0) <<endl;  //ä½†æ˜¯é¢å¯¹å‚æ•°ä¸ºä¸åŒç±»å‹æ—¶æ— æ³•åˆ¤æ–­å¦‚ä½•è¾“å‡ºï¼Œéœ€è¦å¯¹å‚æ•°è¿›è¡Œå¤„ç†ï¼Œå¦‚å¼ºè½¬ç±»å‹
 
-	//ÏÔÊ½ÊµÀı»¯
+	//æ˜¾å¼å®ä¾‹åŒ–
 	_Add<int>(1,2.2);
-	_Add<>(1,2);    //ÒşÊ½ÊµÀı»¯
+	_Add<>(1,2);    //éšå¼å®ä¾‹åŒ–
 	return 0;
 }
 #endif
@@ -52,8 +52,8 @@ public:
 		,_size(0)
 	{}
 
-	//¿½±´¹¹Ôì£ºSeqlist(const Seqlist<T>& s);
-	//¸³ÖµÔËËã·ûÖØÔØ£ºSeqlist<T>& operator = (const Seqlist<T>& s)
+	//æ‹·è´æ„é€ ï¼šSeqlist(const Seqlist<T>& s);
+	//èµ‹å€¼è¿ç®—ç¬¦é‡è½½ï¼šSeqlist<T>& operator = (const Seqlist<T>& s)
 
 	void PushBack(const T& data)
 	{
@@ -67,21 +67,21 @@ public:
 			--_size;
 	}
 
-	//·ÃÎÊÈÎÒâÎ»ÖÃ
-	T& operator[](size_t index)               //¿ÉÄÜ»áĞŞ¸Äs[i]ÖĞµÄÔªËØ
+	//è®¿é—®ä»»æ„ä½ç½®
+	T& operator[](size_t index)               //å¯èƒ½ä¼šä¿®æ”¹s[i]ä¸­çš„å…ƒç´ 
 	{
 		assert(index < _size);
 		return _Data[index];
 	}
 
-	//ÒòÎªconstÀàĞÍµÄ¶ÔÏó²»ÄÜµ÷ÓÃÆÕÍ¨º¯Êı£¬ÕâÀïÊÇconst¶ÔÏó·ÃÎÊ
+	//å› ä¸ºconstç±»å‹çš„å¯¹è±¡ä¸èƒ½è°ƒç”¨æ™®é€šå‡½æ•°ï¼Œè¿™é‡Œæ˜¯constå¯¹è±¡è®¿é—®
 	const T& operator[](size_t index) const
 	{
 		assert(index < _size);
 		return _Data[index];
 	}
 
-	//·ÃÎÊµÚÒ»¸öÔªËØ
+	//è®¿é—®ç¬¬ä¸€ä¸ªå…ƒç´ 
 	T& Front()
 	{
 		return _Data[0];
@@ -92,7 +92,7 @@ public:
 		return _Data[0];
 	}
 
-	//·ÃÎÊ×îºóÒ»¸öÔªËØ
+	//è®¿é—®æœ€åä¸€ä¸ªå…ƒç´ 
 	T& Back()
 	{
 		return _Data[_size-1];
@@ -125,13 +125,13 @@ private:
 		if(_size == _capacity)
 		{
 			size_t newCapacity = (_capacity<<1);
-			//ÉêÇë¿Õ¼ä
+			//ç”³è¯·ç©ºé—´
 			T* Temp = new T[newCapacity];
-			//¿½±´ÔªËØ
+			//æ‹·è´å…ƒç´ 
 			memcpy(Temp,_Data,_size*sizeof(T));
-			//ÊÍ·Å¾É¿Õ¼ä
+			//é‡Šæ”¾æ—§ç©ºé—´
 			delete[] _Data;
-			//Ìæ»»ĞÂ¿Õ¼ä
+			//æ›¿æ¢æ–°ç©ºé—´
 			_Data = Temp;
 			_capacity = newCapacity;
 		}
