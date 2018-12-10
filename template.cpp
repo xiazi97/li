@@ -30,7 +30,7 @@ int main()
 	char str[] = "hello";
 	PrintfArray(array,sizeof(array)/sizeof(int));
 	PrintfArray(str,strlen(str));
-	//隐式实例化---不会进行隐式的类型转化，需要用户自己来强转/
+	//隐式实例化---不会进行隐式的类型转化，需要用户自己来强制转
 	cout<< _Add(1,2) <<endl;   //根据实参类型来进行类型推演生成处理具体类型的函数
 	cout<< _Add(1,(int)2.0) <<endl;  //但是面对参数为不同类型时无法判断如何输出，需要对参数进行处理，如强转类型
 
