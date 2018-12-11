@@ -5,7 +5,7 @@ class Vector
 {
 public:
 	Vector()
-		:_start(nullptr)
+		:_start(nullptr)        
 		,_last(nullptr)
 		,_endOfStorage(nullptr)
 	{}
@@ -17,7 +17,7 @@ public:
 		for(i=0;i<size;++i)
 		{
 			_start[i] = first[i];
-			//≤ªƒ‹”√memcpy(_start, first, size*sizeof(T));Ω¯––∏≥÷µ£¨ª·≥ˆœ÷«≥øΩ±¥Œ Ã‚
+			//‰∏çËÉΩÁî®memcpy(_start, first, size*sizeof(T));ËøõË°åËµãÂÄºÔºå‰ºöÂá∫Áé∞ÊµÖÊã∑Ë¥ùÈóÆÈ¢ò
 			
 		}
 		_last = _start + size;
@@ -31,7 +31,7 @@ public:
 	{
 		for(size_t i=0;i<n;++i)
 			_start[i] = val;
-		//memset(_start ,val ,sizeof(T)*n)”–Œ Ã‚
+		//memset(_start ,val ,sizeof(T)*n)ÊúâÈóÆÈ¢ò
 	}
 
 	Vector(const Vector<T>& v)
@@ -42,7 +42,7 @@ public:
 		
 	}
 private:
-	iterator _start;
+	iterator _start;  //Ëµ∑Âßã‰ΩçÁΩÆ
 	iterator _last;   //size
 	iterator _endOfStorage;   //capacity
 };
