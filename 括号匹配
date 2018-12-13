@@ -6,13 +6,13 @@ typedef int StackDateType;
 #define MAX_SIZE 100
 typedef struct Stack{
 	StackDateType array[MAX_SIZE];
-	int top;        //±íÊ¾µ±Ç°¸öÊı
+	int top;        //è¡¨ç¤ºå½“å‰ä¸ªæ•°
 }Stack;
 
-//³õÊ¼»¯/Ïú»Ù
-//Ôö£¨Ö»ÄÜ´ÓÕ»¶¥½øĞĞ£©/É¾£¨Ö»ÄÜÉ¾³ıÕ»¶¥£©/²é£¨Ö»ÄÜ²é¿´Õ»¶¥ÔªËØ£©
-//Ôö->Ë³Ğò±íµÄÎ²²å
-//É¾->Ë³Ğò±íµÄÎ²É¾
+//åˆå§‹åŒ–/é”€æ¯
+//å¢ï¼ˆåªèƒ½ä»æ ˆé¡¶è¿›è¡Œï¼‰/åˆ ï¼ˆåªèƒ½åˆ é™¤æ ˆé¡¶ï¼‰/æŸ¥ï¼ˆåªèƒ½æŸ¥çœ‹æ ˆé¡¶å…ƒç´ ï¼‰
+//å¢->é¡ºåºè¡¨çš„å°¾æ’
+//åˆ ->é¡ºåºè¡¨çš„å°¾åˆ 
 
 void StackInit(Stack* pStack)
 {
@@ -40,7 +40,7 @@ void StackPop(Stack* pStack)
 StackDateType StackTop(const Stack* pStack)
 {
 	assert(pStack->top > 0);
-	return pStack->array[pStack->top-1];  //·µ»ØÕ»¶¥ÔªËØ
+	return pStack->array[pStack->top-1];  //è¿”å›æ ˆé¡¶å…ƒç´ 
 }
 
 int StackSize(const Stack* pStack)
@@ -80,7 +80,7 @@ void BracketMatch(const char* sequence,int size)
 		case']':
 			if(StackEmpty(&stack))
 			{
-				printf("ÓÒÀ¨ºÅ¶à\n");    //´ËÊ±Õ»Îª¿Õ£¬È»¶øÕ»Íâ»¹ÓĞÖÁÉÙÒ»¸öÓÒÀ¨ºÅ£¬ËùÒÔÎªÓÒÀ¨ºÅ¶à
+				printf("å³æ‹¬å·å¤š\n");    //æ­¤æ—¶æ ˆä¸ºç©ºï¼Œç„¶è€Œæ ˆå¤–è¿˜æœ‰è‡³å°‘ä¸€ä¸ªå³æ‹¬å·ï¼Œæ‰€ä»¥ä¸ºå³æ‹¬å·å¤š
 				StackDestroy(&stack);
 				return;
 			}
@@ -88,17 +88,17 @@ void BracketMatch(const char* sequence,int size)
 			StackPop(&stack);
 			if(leftBracket=='(' && ch !=')')
 			{
-				printf("²»Æ¥Åä\n");
+				printf("ä¸åŒ¹é…\n");
 				return;
 			}
 			if(leftBracket=='{' && ch !='}')
 			{
-				printf("²»Æ¥Åä\n");
+				printf("ä¸åŒ¹é…\n");
 				return;
 			}
 			if(leftBracket=='[' && ch !=']')
 			{
-				printf("²»Æ¥Åä\n");
+				printf("ä¸åŒ¹é…\n");
 				return;
 			}
 		default:
@@ -107,10 +107,10 @@ void BracketMatch(const char* sequence,int size)
 		}
 		if(!StackEmpty(&stack))
 		{
-			printf("×óÀ¨ºÅ¶à\n");
+			printf("å·¦æ‹¬å·å¤š\n");
 			return;
 		}
-		printf("Õı³£Æ¥Åä\n");
+		printf("æ­£å¸¸åŒ¹é…\n");
 	}
 int main()
 {
