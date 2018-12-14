@@ -1,6 +1,6 @@
 /*
-  * ����һ�����ֱ��������ڴ�ɼ��Ե���Ҫ�Ե�demo
-  * volatile�ؼ���
+  * 这是一个体现变量保持内存可见性的重要性的demo
+  * volatile关键字
   * */
   #include<stdio.h>
   #include<unistd.h>
