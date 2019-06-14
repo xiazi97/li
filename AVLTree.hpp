@@ -8,14 +8,14 @@ struct AVLTreeNode{
 		,_pRight(nullptr)
 		,_pParent(nullptr)
 		,_data(data)
-		,_bf(0)
+		,_bf(0) //å¹³è¡¡å› å­
 	{}
 
 	AVLTreeNode<T>* _pLeft;
 	AVLTreeNode<T>* _pRight;
 	AVLTreeNode<T>* _pParent;
 	T _data;
-	int _bf;   //Æ½ºâÒò×Ó
+	int _bf;   //å¹³è¡¡å› å­
 };
 
 
@@ -46,7 +46,7 @@ public:
 			return true;
 		}
 	
-		//Ñ°ÕÒÒª²åÈë½ÚµãÎ»ÖÃ
+		//å¯»æ‰¾è¦æ’å…¥èŠ‚ç‚¹ä½ç½®
 		PNode pCur = _pRoot;
 		PNode pParent = nullptr;
 		while(pCur)
@@ -60,7 +60,7 @@ public:
 				return false;
 		}
 		
-		//²åÈëÊı¾İ
+		//æ’å…¥æ•°æ®
 		pCur = new Node(data);
 		if(data < pParent->_data)
 			pParent->_pLeft = pCur;
@@ -69,8 +69,8 @@ public:
 
 		pCur->_pParent = pParent;
 
-		//²åÈëÖ®Ç°£¬pParent:-1/0/1
-		//¸üĞÂÆ½ºâÒò×Ó
+		//æ’å…¥ä¹‹å‰ï¼ŒpParent:-1/0/1
+		//æ›´æ–°å¹³è¡¡å› å­
 		while(pParent)
 		{
 			if(pCur == pParent->_pLeft)
@@ -78,17 +78,17 @@ public:
 			else
 				pParent->_bf++;
 
-			if(0==pParent->_bf)//¸ß¶ÈÎ´·¢Éú¸Ä±ä
+			if(0==pParent->_bf)//é«˜åº¦æœªå‘ç”Ÿæ”¹å˜
 				break;
-			else if(-1 == pParent->_bf || 1 == pParent->_bf)//¸ß¶ÈÔö¼ÓÁË
+			else if(-1 == pParent->_bf || 1 == pParent->_bf)//é«˜åº¦å¢åŠ äº†
 			{
 				pCur = pParent;
 				pParent = pCur->_pParent;
 			}
 			else
 			{
-				//pParentµÄÆ½ºâÒò×ÓÎª2»òÕß-2£¬Î¥·´ÁËAVLÊ÷µÄÆ½ºâĞÔ£¬ĞèÒª½øĞĞĞı×ª´¦Àí
-				//ĞÂ½Úµã²åÈëÔÚ
+				//pParentçš„å¹³è¡¡å› å­ä¸º2æˆ–è€…-2ï¼Œè¿åäº†AVLæ ‘çš„å¹³è¡¡æ€§ï¼Œéœ€è¦è¿›è¡Œæ—‹è½¬å¤„ç†
+				//æ–°èŠ‚ç‚¹æ’å…¥åœ¨
 				if(2 == pParent->_bf)
 				{
 					if(1 == pCur->_bf)
@@ -187,7 +187,7 @@ public:
 		RotateL(pParent->_pLeft);
 		RotateR(pParent);
 
-		//¸üĞÂÆ½ºâÒò×Ó
+		//æ›´æ–°å¹³è¡¡å› å­
 		if(1 == bf)
 		{
 			pSubL->_bf = -1;
