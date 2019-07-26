@@ -57,7 +57,7 @@ public:
 			else if(data > pCur->_data)
 				pCur = pCur->_pRight;
 			else
-				return false;
+				return true;
 		}
 		
 		//插入数据
